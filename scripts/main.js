@@ -1,6 +1,12 @@
 import { ShoppingCart } from "./classes/shoppingCart.js";
 import { renderProducts } from "./components/productsList.js";
+import { renderShoppingCartList } from "./components/shoppingCartList.js";
 
-const shoppingCart = new ShoppingCart();
+let shoppingCart;
+if (localStorage.getItem("cart")) {
+    shoppingCart = JSON.parse(localStorage.getItem("cart"));
+} else {
+    shoppingCart = new ShoppingCart();
+}
 
-renderProducts(shoppingCart);
+renderShoppingCartList(shoppingCart);

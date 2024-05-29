@@ -22,5 +22,3 @@ export const createCard = (product) => {
     `;
     return card
 }
-
-//Función para crear tarjeta de carrito

@@ -1,8 +1,7 @@
 //Crear nuevo elemento
-export function createElement(type, classes, content) {
+export function createElement(type, classes) {
     const element = document.createElement(type);
     if (classes) element.className = classes;
-    if (content) element.innerText = content;
     return element;
 }
 
