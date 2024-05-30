@@ -54,10 +54,30 @@ export function renderShoppingCartList(cart) {
     document.addEventListener("click", event => {
         //Vaciar carrito
         if (event.target.classList.contains("clean-cart")) {
-            cart.cleanCart();
-            emptyElement(shoppingCartContainer);
-            shoppingCartContainer.innerHTML = "<h2>Carrito de compras</h2>";
-            createEmptyCartMessage();
+            Swal.fire({
+                title: "¿Deseas vaciar el carrito?",
+                text: "¡No podrás deshacer esta operación!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Vaciar",
+                cancelButtonText: "No"
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Carrito vaciado",
+                        text: "Se ha vaciado correctamente el carrito.",
+                        icon: "success"
+                    });
+
+                    //Limpiar carrito
+                    cart.cleanCart();
+                    emptyElement(shoppingCartContainer);
+                    shoppingCartContainer.innerHTML = "<h2>Carrito de compras</h2>";
+                    createEmptyCartMessage();
+                }
+              });
         }
 
         //Editar cantidad de productos
@@ -83,7 +103,6 @@ export function renderShoppingCartList(cart) {
                 subTotalCell.textContent = `$${product.subTotal}`;
 
                 //Calcular nuevo total
-                console.log(cart.total)
                 cart.updateTotal();
 
                 const totalContainer = document.querySelector(".total-container");
@@ -100,14 +119,61 @@ export function renderShoppingCartList(cart) {
         //Eliminar producto
         if (event.target.classList.contains("remove-cart-item")) {
             const id = parseInt(event.target.dataset.id);
-            cart.removeProduct(id);
-            emptyElement(shoppingCartContainer);
-            renderShoppingCartList(cart);
+
+            //Modal para confirmar eliminación
+            Swal.fire({
+                title: `Deseas eliminar ${cart.findById(id).name} del carrito?`,
+                text: "¡No podrás deshacer esta operación!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Si",
+                cancelButtonText: "No"
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Producto borrado",
+                        text: `Has eliminado ${cart.findById(id).name} del carrito.`,
+                        icon: "success"
+                    });
+
+                    //Eliminar el carrito
+                    cart.removeProduct(id);
+                    emptyElement(shoppingCartContainer);
+                    renderShoppingCartList(cart);
+                }
+              });
         }
 
         //Finalizar compra
         if (event.target.classList.contains("finish-purchase")) {
-            alert("Gracias por su compra");
+            //Modal para confirmar compra
+            Swal.fire({
+                //Cuerpo del modal
+                title: `¿Deseas finalizar la compra?\nEl total a pagar es: $${cart.total}`,
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Continuar",
+                cancelButtonText: "Cancelar"
+              }).then((result) => {
+                //Si el usuario acepta la compra
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Compra realizada",
+                        text: "Te enviaremos los datos de la compra a tu correo.",
+                        icon: "success"
+                    });
+
+                    //Limpiar carrito
+                    cart.cleanCart();
+                    emptyElement(shoppingCartContainer);
+                    shoppingCartContainer.innerHTML = "<h2>Carrito de compras</h2>";
+                    createEmptyCartMessage();
+                }
+              });
         }
     });
 }
