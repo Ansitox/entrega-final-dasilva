@@ -1,3 +1,12 @@
 img {
     max-width: 50px;
 }
+
+#flex-container {
+    display: flex;
+    flex-direction: row;
+}
+
+#products-container {
+    width: 25%;
+}

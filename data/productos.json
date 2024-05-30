@@ -49,7 +49,7 @@
     },
     {
         "id": 7,
-        "name": "Tijeras de Podar Fiskars",
+        "name": "Tijeras de podar Fiskars",
         "price": 3200,
         "description": "Corta con precisión y facilidad con las tijeras de podar Fiskars. Diseñadas ergonómicamente para un agarre cómodo y un corte preciso, estas tijeras son ideales para podar plantas y arbustos en tu jardín.",
         "image": "../assets/img/tool-tijeras.jpg",
@@ -57,7 +57,7 @@
     },
     {
         "id": 8,
-        "name": "Maceta Auto-Riego Lechuza",
+        "name": "Maceta auto-riego Lechuza",
         "price": 4500,
         "description": "Mantén tus plantas felices y saludables con la maceta auto-riego Lechuza. Equipada con un sistema de autorriego que garantiza un suministro constante de agua, esta maceta es perfecta para aquellos que desean mantener sus plantas hidratadas sin esfuerzo.",
         "image": "../assets/img/tool-maceta.jpg",
@@ -65,7 +65,7 @@
     },
     {
         "id": 9,
-        "name": "Maceta Auto-Riego Lechuza",
+        "name": "Regadera plástica Tramontina",
         "price": 530,
         "description": "Mantén tus plantas bien regadas con la regadera plástica Tramontina. Fabricada con plástico resistente, esta regadera es ligera y fácil de usar, ideal para regar plantas en macetas, jardines o huertos.",
         "image": "../assets/img/tool-regadera.jpg",
