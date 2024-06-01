@@ -10,12 +10,18 @@
 </head>
 <body>
     <div id="container">
-        <h1>Simulador de compras</h1>
-        <p>Bienvenido/a al simulador de compras, en este sitio podras simular las compras de una tienda.</p>
-        <div id="flex-container">
-            <div id="products-container"></div>
-            <div id="shopping-cart-container">
+        <div class="title-container">
+            <h1>Simulador de compras</h1>
+            <p>Bienvenido/a al simulador de compras, en este sitio podras simular las compras de una tienda.</p>
         </div>
+        <div class="switch-buttons">
+            <button id="product-list-btn" class="active">Productos</button>
+            <button id="cart-btn">Carrito <span id="cart-counter"></span></button>
+        </div>
+        <div id="main-section">
+            <div class="main-title"></div>
+            <div id="products-container"></div>
+            <div id="shopping-cart-container"></div>
         </div>
     </div>
     <!-- Sweet alert 2 -->

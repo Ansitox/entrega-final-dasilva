@@ -13,7 +13,7 @@ export const createCartItem = (product) => {
         </td>
         <td class="cart-item-price" id="cart-item-price-${product.id}">$${product.subTotal}</td>
         <td class="cart-item-remove">
-            <button class="remove-cart-item" data-id="${product.id}">Eliminar</button>
+            <button class="remove-cart-item" data-id="${product.id}">X</button>
         </td>
     `;
     return cartItem

@@ -5,7 +5,7 @@
         "price": 500,
         "description": "Belleza eterna: Las rosas están eternas. Requieren pleno sol y suelo bien drenado. Perfectas para arreglos florales y regalos especiales.",
         "image": "../assets/img/plant-rosa.jpg",
-        "category": "plant"
+        "category": "Plantas"
     },
     {
         "id": 2,
@@ -13,7 +13,7 @@
         "price": 350,
         "description": "Aroma relajante: La lavanda es conocida por su fragancia calmante y atrae a polinizadores. Prefiere pleno sol y suelos secos. Ideal para bordes de jardín y aromaterapia.",
         "image": "../assets/img/plant-lavanda.jpg",
-        "category": "plant"
+        "category": "Plantas"
     },
     {
         "id": 3,
@@ -21,7 +21,7 @@
         "price": 240,
         "description": "Frescura del huerto: Los tomates son fáciles de cultivar y deliciosos. Necesitan pleno sol y riego regular. Disfruta de tomates frescos en tus ensaladas y platos favoritos.",
         "image": "../assets/img/plant-tomate.jpg",
-        "category": "plant"
+        "category": "Plantas"
     },
     {
         "id": 4,
@@ -29,7 +29,7 @@
         "price": 375,
         "description": "Elegancia natural: Los helechos son plantas de interior que anaden un toque de verdor a cualquier espacio. Prefieren sombra parcial y humedad constante. Perfectos para baños y belleza sombrías.",
         "image": "../assets/img/plant-helecho.jpg",
-        "category": "plant"
+        "category": "Plantas"
     },
     {
         "id": 5,
@@ -37,7 +37,7 @@
         "price": 130,
         "description": "Belleza resistente: Las suculentas son fácilmente cuidadas. Prefieren pleno sol y suelos bien drenados. Ideales para decorar interiores y regalos duraderos.",
         "image": "../assets/img/plant-suculenta.jpg",
-        "category": "plant"
+        "category": "Plantas"
     },
     {
         "id": 6,
@@ -45,7 +45,7 @@
         "price": 625,
         "description": "Elegancia vertical: El bambú agrega altura y estructura al jardín. Necesita pleno sol o sombra parcial y suelos húmedos. Crea setos o pantallas de privacidad con esta planta versátil.",
         "image": "../assets/img/plant-bambu.jpg",
-        "category": "plant"
+        "category": "Plantas"
     },
     {
         "id": 7,
@@ -53,7 +53,7 @@
         "price": 3200,
         "description": "Corta con precisión y facilidad con las tijeras de podar Fiskars. Diseñadas ergonómicamente para un agarre cómodo y un corte preciso, estas tijeras son ideales para podar plantas y arbustos en tu jardín.",
         "image": "../assets/img/tool-tijeras.jpg",
-        "category": "tool"
+        "category": "Herramientas"
     },
     {
         "id": 8,
@@ -61,7 +61,7 @@
         "price": 4500,
         "description": "Mantén tus plantas felices y saludables con la maceta auto-riego Lechuza. Equipada con un sistema de autorriego que garantiza un suministro constante de agua, esta maceta es perfecta para aquellos que desean mantener sus plantas hidratadas sin esfuerzo.",
         "image": "../assets/img/tool-maceta.jpg",
-        "category": "tool"
+        "category": "Herramientas"
     },
     {
         "id": 9,
@@ -69,6 +69,6 @@
         "price": 530,
         "description": "Mantén tus plantas bien regadas con la regadera plástica Tramontina. Fabricada con plástico resistente, esta regadera es ligera y fácil de usar, ideal para regar plantas en macetas, jardines o huertos.",
         "image": "../assets/img/tool-regadera.jpg",
-        "category": "tool"
+        "category": "Herramientas"
     }
 ]

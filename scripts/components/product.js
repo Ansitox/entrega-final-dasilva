@@ -12,9 +12,9 @@ export const createCard = (product) => {
         </div>
         <div class="card-body">
             <p>${product.description}</p>
-            <p>Precio: $${product.price}</p>
         </div>
         <div class="card-footer">
+            <p>Precio: $${product.price}</p>
             <label for="quantity-input-${product.id}">Cant.:</label>
             <input type="number" id="quantity-input-${product.id}" min="1" max="20" value="1" required>
             <button class="add-to-cart" data-id="${product.id}">Añadir al carrito</button>

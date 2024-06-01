@@ -3,34 +3,43 @@ import { createCartItem } from "./cartItem.js";
 
 //Función para mostrar el carrito
 export function renderShoppingCartList(cart) {
+    //Preparar contenedor
     const shoppingCartContainer = document.querySelector("#shopping-cart-container");
-    shoppingCartContainer.innerHTML = "<h2>Carrito de compras</h2>";
+
+    //Generar mensaje de carrito vacío
     const createEmptyCartMessage = () => {
         const emptyCartMessage = createElement("p", "empty-cart-message");
-        emptyCartMessage.textContent = "No hay productos en el carrito";
+        emptyCartMessage.textContent = `Aún no hay productos en el carrito`;
         shoppingCartContainer.appendChild(emptyCartMessage);
     }
 
+    //Verificar que el carrito no este vacío
     if (cart.productList.length === 0) {
         createEmptyCartMessage();
     } else {
         // Crear tabla para mostrar el carrito
         const shoppingCartList = createElement("table", "shopping-cart-list");
         shoppingCartList.innerHTML = `
-            <tr>
-                <th></th>
-                <th>Nombre</th>
-                <th>Cantidad</th>
-                <th>Precio</th>
-                <th>Eliminar</th>
-            </tr>
+            <thead class="table-header">
+                <tr>
+                    <th class="cart-item-image"></th>
+                    <th class="cart-item-name">Nombre</th>
+                    <th class="cart-item-quantity">Cantidad</th>
+                    <th class="cart-item-price">Precio</th>
+                    <th class="cart-item-remove">Eliminar</th>
+                </tr>
+            </thead>
+
         `
+        const tableBody = createElement("tbody", "table-body");
 
         // Crear items del carrito
         cart.productList.forEach(product => {
             const cartItem = createCartItem(product);
-            shoppingCartList.appendChild(cartItem);
+            tableBody.appendChild(cartItem);
         });
+
+        shoppingCartList.appendChild(tableBody);
         shoppingCartContainer.appendChild(shoppingCartList);
 
         // Crear total del carrito
@@ -74,8 +83,11 @@ export function renderShoppingCartList(cart) {
                     //Limpiar carrito
                     cart.cleanCart();
                     emptyElement(shoppingCartContainer);
-                    shoppingCartContainer.innerHTML = "<h2>Carrito de compras</h2>";
                     createEmptyCartMessage();
+
+                    //Actualizar contador
+                    const cartCounter = document.querySelector("#cart-counter");
+                    cartCounter.textContent = cart.productList.length;
                 }
               });
         }
@@ -142,6 +154,10 @@ export function renderShoppingCartList(cart) {
                     cart.removeProduct(id);
                     emptyElement(shoppingCartContainer);
                     renderShoppingCartList(cart);
+
+                    //Actualizar contador
+                    const cartCounter = document.querySelector("#cart-counter");
+                    cartCounter.textContent = cart.productList.length;
                 }
               });
         }

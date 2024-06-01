@@ -33,9 +33,9 @@ export class ShoppingCart{
             // Actualizar el carrito en el localStorage
             saveInLocalStorage("cart", this);
 
-            // Actualizar lista de productos en carrito
-            emptyElement(document.querySelector("#shopping-cart-container"));
-            renderShoppingCartList(this);
+            //Actualizar contador de carrito
+            const cartCounter = document.querySelector("#cart-counter");
+            cartCounter.textContent = this.productList.length;
           } else {
             console.error("No se encontró el producto");
           }
