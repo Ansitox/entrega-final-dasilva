@@ -2,6 +2,7 @@ import { ShoppingCart } from "./classes/shoppingCart.js";
 import { renderProducts } from "./components/productsList.js";
 import { renderShoppingCartList } from "./components/shoppingCartList.js";
 import { emptyElement } from "./utils/dom.js";
+import { eventHandler } from "./utils/eventHandler.js";
 
 //Inicializar carrito de compras
 let shoppingCart;
@@ -16,21 +17,21 @@ if (localStorage.getItem("cart")) {
 }
 
 //Obtener botones del switch
-let productListButton = document.getElementById("product-list-btn");
-let cartButton = document.getElementById("cart-btn");
+const productListButton = document.getElementById("product-list-btn");
+const cartButton = document.getElementById("cart-btn");
 
 //Iniciar contador del carrito
-let cartCounter = document.getElementById("cart-counter");
+const cartCounter = document.getElementById("cart-counter");
 cartCounter.innerHTML = shoppingCart.productList.length;
 
 //Renderizar productos
-renderProducts(shoppingCart);
+renderProducts();
 document.querySelector("#shopping-cart-container").style.display = "none";
 
 //Renderizar productos
 productListButton.addEventListener("click", function() {
     //Cambiar titulo
-    document.querySelector(".main-title").textContent = "Lista de productos";
+    document.querySelector(".main-title>h3").textContent = "Lista de productos";
     //Cambiar estado de los botones
     productListButton.classList.add("active");
     cartButton.classList.remove("active");
@@ -42,7 +43,7 @@ productListButton.addEventListener("click", function() {
     document.querySelector("#shopping-cart-container").style.display = "none";
 
     //Renderizar productos
-    renderProducts(shoppingCart);
+    renderProducts();
 });
 
 //Renderizar carrito
@@ -63,24 +64,4 @@ cartButton.addEventListener("click", function() {
     renderShoppingCartList(shoppingCart);
 });
 
-//Evento: Click para el botón "agregar al carrito"
-document.addEventListener("click", (event) => {
-    const cartCounter = document.querySelector("#cart-counter");
-    //Agregar al carrito
-    if (event.target.classList.contains("add-to-cart")) {
-        //Id y cantidad
-        const id = parseInt(event.target.dataset.id);
-        const quantity = parseInt(document.getElementById(`quantity-input-${id}`).value);
-
-        //Si el producto ya existe, actualizar cantidad y subtotal
-        if (shoppingCart.findById(id)) {
-            shoppingCart.editProductQuantity(id, quantity);
-
-            //Actualizar contador
-            cartCounter.textContent = shoppingCart.productList.length;
-        //Si el proyecto no existe, agregarlo a la lista
-        } else {
-            shoppingCart.addProduct(id, quantity);
-        }
-    }
-})
+eventHandler(shoppingCart);

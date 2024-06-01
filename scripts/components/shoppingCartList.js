@@ -1,17 +1,11 @@
-import { createElement, emptyElement } from "../utils/dom.js";
+import { createElement } from "../utils/dom.js";
+import { createEmptyCartMessage } from "../utils/eventHandler.js";
 import { createCartItem } from "./cartItem.js";
 
 //Función para mostrar el carrito
 export function renderShoppingCartList(cart) {
     //Preparar contenedor
     const shoppingCartContainer = document.querySelector("#shopping-cart-container");
-
-    //Generar mensaje de carrito vacío
-    const createEmptyCartMessage = () => {
-        const emptyCartMessage = createElement("p", "empty-cart-message");
-        emptyCartMessage.textContent = `Aún no hay productos en el carrito`;
-        shoppingCartContainer.appendChild(emptyCartMessage);
-    }
 
     //Verificar que el carrito no este vacío
     if (cart.productList.length === 0) {
@@ -57,139 +51,4 @@ export function renderShoppingCartList(cart) {
         `;
         shoppingCartContainer.appendChild(shoppingCartActions);
     }
-
-
-    // Evento: Click
-    document.addEventListener("click", event => {
-        //Vaciar carrito
-        if (event.target.classList.contains("clean-cart")) {
-            Swal.fire({
-                title: "¿Deseas vaciar el carrito?",
-                text: "¡No podrás deshacer esta operación!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Vaciar",
-                cancelButtonText: "No"
-              }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire({
-                        title: "Carrito vaciado",
-                        text: "Se ha vaciado correctamente el carrito.",
-                        icon: "success"
-                    });
-
-                    //Limpiar carrito
-                    cart.cleanCart();
-                    emptyElement(shoppingCartContainer);
-                    createEmptyCartMessage();
-
-                    //Actualizar contador
-                    const cartCounter = document.querySelector("#cart-counter");
-                    cartCounter.textContent = cart.productList.length;
-                }
-              });
-        }
-
-        //Editar cantidad de productos
-        if (event.target.classList.contains("edit-product-quantity")) {
-            const id = parseInt(event.target.dataset.id);
-            const quantityInput = document.getElementById(`cart-quantity-input-${id}`);
-
-            if (event.target.textContent === "Editar") {
-                //Habilitar el input para editar la cantidad
-                quantityInput.disabled = false;
-                event.target.textContent = 'Ok';
-            } else if (event.target.textContent === 'Ok') {
-                //Obtener producto asociado al ID
-                const product = cart.findById(id);
-
-                //Actualizar cantidad
-                const quantity = parseInt(quantityInput.value);
-                product.quantity = 0;
-                cart.editProductQuantity(id, quantity);
-
-                //Actualizar subtotal en la lista
-                const subTotalCell = document.getElementById(`cart-item-price-${id}`);
-                subTotalCell.textContent = `$${product.subTotal}`;
-
-                //Calcular nuevo total
-                cart.updateTotal();
-
-                const totalContainer = document.querySelector(".total-container");
-                totalContainer.innerHTML = `
-                    <h3>Total: $${cart.total}</h3>
-                `;
-
-                //Deshabilitar el input
-                quantityInput.disabled = true;
-                event.target.textContent = 'Editar';
-            }
-        }
-
-        //Eliminar producto
-        if (event.target.classList.contains("remove-cart-item")) {
-            const id = parseInt(event.target.dataset.id);
-
-            //Modal para confirmar eliminación
-            Swal.fire({
-                title: `Deseas eliminar ${cart.findById(id).name} del carrito?`,
-                text: "¡No podrás deshacer esta operación!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Si",
-                cancelButtonText: "No"
-              }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire({
-                        title: "Producto borrado",
-                        text: `Has eliminado ${cart.findById(id).name} del carrito.`,
-                        icon: "success"
-                    });
-
-                    //Eliminar el carrito
-                    cart.removeProduct(id);
-                    emptyElement(shoppingCartContainer);
-                    renderShoppingCartList(cart);
-
-                    //Actualizar contador
-                    const cartCounter = document.querySelector("#cart-counter");
-                    cartCounter.textContent = cart.productList.length;
-                }
-              });
-        }
-
-        //Finalizar compra
-        if (event.target.classList.contains("finish-purchase")) {
-            //Modal para confirmar compra
-            Swal.fire({
-                //Cuerpo del modal
-                title: `¿Deseas finalizar la compra?\nEl total a pagar es: $${cart.total}`,
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Continuar",
-                cancelButtonText: "Cancelar"
-              }).then((result) => {
-                //Si el usuario acepta la compra
-                if (result.isConfirmed) {
-                    Swal.fire({
-                        title: "Compra realizada",
-                        text: "Te enviaremos los datos de la compra a tu correo.",
-                        icon: "success"
-                    });
-
-                    //Limpiar carrito
-                    cart.cleanCart();
-                    emptyElement(shoppingCartContainer);
-                    shoppingCartContainer.innerHTML = "<h2>Carrito de compras</h2>";
-                    createEmptyCartMessage();
-                }
-              });
-        }
-    });
 }

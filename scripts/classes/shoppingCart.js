@@ -1,7 +1,7 @@
 import { saveInLocalStorage } from "../utils/localStorage.js";
 import { getProducts } from "../services/loadData.js";
 import { renderShoppingCartList } from "../components/shoppingCartList.js";
-import { emptyElement } from "../utils/dom.js";
+
 export class ShoppingCart{
     constructor () {
         this.productList = []

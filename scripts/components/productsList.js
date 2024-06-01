@@ -2,10 +2,10 @@ import { getProducts } from "../services/loadData.js";
 import { createCard } from "./product.js";
 
 //Función para mostrar los productos
-export async function renderProducts(cart) {
+export async function renderProducts() {
     try {
         //Obtener productos
-        const products = await getProducts();
+        let products = await getProducts();
 
         const productsContainer = document.querySelector("#products-container");
         const titleContainer = document.querySelector(".main-title");
@@ -20,6 +20,8 @@ export async function renderProducts(cart) {
         </div>
         `;
 
+        const categorySelect = document.querySelector("#category-select");
+
         //Generar array de categorías
         const categories = [...new Set(products.map((product) => product.category))];
 
@@ -28,7 +30,29 @@ export async function renderProducts(cart) {
             const option = document.createElement("option");
             option.value = category;
             option.textContent = category;
-            document.querySelector("#category-select").appendChild(option);
+            categorySelect.appendChild(option);
+        });
+
+        //Filtrar productos por categoría
+        categorySelect.addEventListener("change", () => {
+            const reRender = (categoryArray) => {
+                //Limpiar contenedor de tarjetas
+                productsContainer.innerHTML = "";
+
+                //Crear tarjetas por cada categoria
+                categoryArray.forEach((product) => {
+                    const card = createCard(product);
+                    productsContainer.appendChild(card);
+                });
+            }
+            if (categorySelect.value) {
+                //Crear tarjetas por cada categoria
+                const filteredProducts = products.filter((product) => product.category === categorySelect.value);
+
+                reRender(filteredProducts);
+                } else {
+                    reRender(products);
+            }
         });
 
         //Crear tarjetas por cada producto
@@ -36,28 +60,6 @@ export async function renderProducts(cart) {
             const card = createCard(product);
             productsContainer.appendChild(card);
         });
-
-        // //Evento: Click
-        // document.addEventListener("click", (event) => {
-        //     const cartCounter = document.querySelector("#cart-counter");
-        //     //Agregar al carrito
-        //     if (event.target.classList.contains("add-to-cart")) {
-        //         //Id y cantidad
-        //         const id = parseInt(event.target.dataset.id);
-        //         const quantity = parseInt(document.getElementById(`quantity-input-${id}`).value);
-
-        //         //Si el producto ya existe, actualizar cantidad y subtotal
-        //         if (cart.findById(id)) {
-        //             cart.editProductQuantity(id, quantity);
-
-        //             //Actualizar contador
-        //             cartCounter.textContent = cart.productList.length;
-        //         //Si el proyecto no existe, agregarlo a la lista
-        //         } else {
-        //             cart.addProduct(id, quantity);
-        //         }
-        //     }
-        // })
     } catch (error) {
         console.error('Error en obtenerProductos:', error);
         throw error;
